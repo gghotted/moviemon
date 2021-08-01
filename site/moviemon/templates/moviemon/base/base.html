@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %} {% endblock %}</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static 'moviemon/style.css' %}">
+    </head>
+    <body>
+        <div class="screen">
+            <div class="screen-data">
+                {% block screen-data %} {% endblock %}
+            </div>
+            <div class="screen-main">
+                {% block screen-main %} {% endblock %}
+            </div>
+        </div>
+        <div class="control-box">
+            {% block control-box %}
+                <div class='control-directions'>
+                    <div class="direction-up">
+                        {% include 'moviemon/base/button.html' with enable=btn_enable.up     name='&#11014;'     url=btn_url_up %}
+                    </div>
+                    <div class="direction-left-right">
+                        {% include 'moviemon/base/button.html' with enable=btn_enable.left   name='&#11013;'   url=btn_url_left %}
+                        {% include 'moviemon/base/button.html' with enable=btn_enable.right  name='&#10145;'  url=btn_url_right %}
+                    </div>
+                    <div class="direction-down">
+                        {% include 'moviemon/base/button.html' with enable=btn_enable.down   name='&#11015;'   url=btn_url_down %}
+                    </div>
+                </div>
+                <div class='control-options'>
+                    {% include 'moviemon/base/button.html' with enable=btn_enable.select name='Select' url=btn_url_select %}
+                    {% include 'moviemon/base/button.html' with enable=btn_enable.start  name='Start'  url=btn_url_start %}
+                    {% include 'moviemon/base/button.html' with enable=btn_enable.a      name='A'      url=btn_url_a %}
+                    {% include 'moviemon/base/button.html' with enable=btn_enable.b      name='B'      url=bnt_url_b %}
+                </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>

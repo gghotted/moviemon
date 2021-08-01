@@ -1,0 +1,9 @@
+{% extends 'moviemon/base/base.html' %}
+
+{% block title %} TitleScreen {% endblock %}
+
+{% block control-box %}
+    {% url 'title_screen' as btn_url_a %}
+    {% url 'title_screen' as btn_url_b %}
+    {{ block.super }}
+{% endblock %}

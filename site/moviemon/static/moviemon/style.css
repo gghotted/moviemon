@@ -1,0 +1,53 @@
+/* debug */
+div {
+    /* border: solid; */
+    border-color: red;
+}
+
+/* base */
+body {
+    width: 1200px;
+    height: 600px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.screen {
+    border: solid;
+    border-color: skyblue;
+    border-radius: 10px;
+    width: 100%;
+    height: 75%;
+}
+
+.screen-data, .screen-main {
+    display: inline-block;
+    height: 100%;
+}
+.screen-main {
+    width: max-content;
+}
+
+/* controlbox */
+
+.control-box {
+    border: solid;
+    border-color: skyblue;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 25%;
+}
+.control-directions, .control-options{
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+}
+
+button {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 10px;
+    font-size: large;
+}
