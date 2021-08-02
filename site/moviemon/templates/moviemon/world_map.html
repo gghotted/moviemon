@@ -1,0 +1,113 @@
+<!-- need contexts
+btn_enable = {
+    'left': bool,
+    'right': bool,
+    'up': bool,
+    'down': bool,
+    'select': bool,
+    'start': bool,
+    'a': bool,
+    'b': bool
+}
+player_pos = dict
+movieball_cnt = int (무비볼 획득한 후의 갯수)
+movieball_appeared = bool
+moviemon_appeared = bool
+map_size = {
+    'y': range(y),
+    'x': range(x)
+}
+-->
+{% extends 'moviemon/base/base.html' %}
+
+{% block title %} WorldMap {% endblock %}
+
+{% block screen-data %}
+    {% if movieball_appeared %}
+    <p>무비볼을 획득하였습니다!</p>
+    {% endif %}
+
+    <p>무비볼: {{movieball_cnt}}</p>
+
+    <div class="btn-nav">Select - 무비도감</div>
+    <div class="btn-nav">Start - 옵션</div>
+    {% if moviemon_appeared %}
+    <p>무비몬이 나타났습니다!</p>
+    <div class='btn-nav'>
+        A - 무비몬 잡기!
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block screen-main %}
+    <table class="worldmap">
+    {% for y in map_size.y %}
+        <tr>
+            {% for x in map_size.x %}
+            <td>
+                {% if y == player_pos.y and x == player_pos.x %}
+                P
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
+
+{% block btn-up %}
+<button {% if not btn_enable.up %} disabled {% endif %}
+        onclick="location.href='{% url "worldmap" %}?cmd=up'">
+        &#11014;
+</button>
+{% endblock %}
+
+{% block btn-down %}
+<button {% if not btn_enable.down %} disabled {% endif %}
+        onclick="location.href='{% url "worldmap" %}?cmd=down'">
+        &#11015;
+</button>
+{% endblock %}
+
+{% block btn-left %}
+<button {% if not btn_enable.left %} disabled {% endif %}
+        onclick="location.href='{% url "worldmap" %}?cmd=left'">
+        &#11013;
+</button>
+{% endblock %}
+
+{% block btn-right %}
+<button {% if not btn_enable.right %} disabled {% endif %}
+        onclick="location.href='{% url "worldmap" %}?cmd=right'">
+        &#10145;
+</button>
+{% endblock %}
+
+{% block btn-select %}
+<button {% if not btn_enable.select %} disabled {% endif %}
+        onclick="location.href='{% url "moviedex" %}'">
+        select
+</button>
+{% endblock %}
+
+{% block btn-start %}
+<button {% if not btn_enable.start %} disabled {% endif %}
+        onclick="location.href='{% url "options" %}'">
+        start
+</button>
+{% endblock %}
+
+{% block btn-a %}
+<button {% if not btn_enable.a %} disabled {% endif %}
+        onclick="location.href='{% url "battle" moviemon_id %}'">
+        A
+</button>
+{% endblock %}
+
+{% block btn-b %}
+<button {% if not btn_enable.b %} disabled {% endif %}
+        onclick="location.href=''">
+        B
+</button>
+{% endblock %}

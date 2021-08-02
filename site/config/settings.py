@@ -124,3 +124,23 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MAP_SIZE = {'x': 10, 'y': 10}
+
+PLAYER_POS = {'x': 0, 'y': 0}
+
+# Internet Movie Database
+MOVIES = {
+    'Disaster Movie', #1.9
+    'Clementine', #3.1
+    'Scary Movie 5', #3.5
+
+    'Twilight', #5.2
+    'Suicide Squad', #5.9
+    'Terminator 3', #6.3
+
+    'Titanic', #7.8
+    'Harry Potter', #8.1
+    'Avengers: Endgame', #8.4
+    'The Shawshank Redemption', #9.3
+}

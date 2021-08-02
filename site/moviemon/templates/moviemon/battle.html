@@ -9,19 +9,50 @@ btn_enable = {
     'a': bool,
     'b': bool
 }
+movieball_cnt = int
+player_strength = float
+moviemon_strength = float
+catched = bool
+missed = bool
+win_ratio = float
+moviemon_poster = str
 -->
 {% extends 'moviemon/base/base.html' %}
 
-{% block title %} TitleScreen {% endblock %}
+{% block title %} WorldMap {% endblock %}
+
+{% block screen-data %}
+    <p>무비볼: {{movieball_cnt}}</p>
+    <p>플레이어 전투력: {{player_strength}}</p>
+    <p>무비몬 전투력: {{moviemon_strength}}</p>
+    <p>이길 확률 : {{win_ratio}}%</p>
+
+    {% if catched %}
+    <p>무비몬을 획득했습니다!</p>
+    {% endif %}
+
+    {% if missed %}
+    <p>무비몬 획득에 실패했습니다 ㅠㅠ</p>
+    {% endif %}
+
+    {% if not catched %}
+    <div class='btn-nav'>
+        A - 무비볼 던지기!
+    </div>
+    {% endif %}
+    <div class='btn-nav'>
+        B - 되돌아가기!
+    </div>
+{% endblock %}
 
 {% block screen-main %}
-    <div class="btn-nav">A - New Game</div>
-    <div class="btn-nav">B - Load</div>
+    <img src="{{moviemon_poster}}">
 {% endblock %}
+
 
 {% block btn-up %}
 <button {% if not btn_enable.up %} disabled {% endif %}
-        onclick="location.href=''">
+        onclick="location.href='{% url "worldmap" %}?cmd=up'">
         &#11014;
 </button>
 {% endblock %}
@@ -63,14 +94,14 @@ btn_enable = {
 
 {% block btn-a %}
 <button {% if not btn_enable.a %} disabled {% endif %}
-        onclick="location.href='{% url "worldmap" %}?newgame=true'">
+        onclick="location.href='{% url "battle" moviemon_id %}?cmd=a'">
         A
 </button>
 {% endblock %}
 
 {% block btn-b %}
 <button {% if not btn_enable.b %} disabled {% endif %}
-        onclick="location.href='{% url "load" %}'">
+        onclick="location.href='{% url "worldmap" %}'">
         B
 </button>
 {% endblock %}

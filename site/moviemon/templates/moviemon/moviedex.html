@@ -9,15 +9,26 @@ btn_enable = {
     'a': bool,
     'b': bool
 }
+moviemons = [
+    {
+        id: tt1234,
+        poster: url,
+    }
+    dict,
+]
+selected_id = str
 -->
 {% extends 'moviemon/base/base.html' %}
 
-{% block title %} TitleScreen {% endblock %}
+{% block title %} WorldMap {% endblock %}
+
 
 {% block screen-main %}
-    <div class="btn-nav">A - New Game</div>
-    <div class="btn-nav">B - Load</div>
+    <div class="btn-nav">A - Save</div>
+    <div class="btn-nav">B - Quit</div>
+    <div class="btn-nav">Start - Cancle</div>
 {% endblock %}
+
 
 {% block btn-up %}
 <button {% if not btn_enable.up %} disabled {% endif %}
@@ -56,21 +67,21 @@ btn_enable = {
 
 {% block btn-start %}
 <button {% if not btn_enable.start %} disabled {% endif %}
-        onclick="location.href=''">
+        onclick="location.href='{% url "worldmap" %} '">
         start
 </button>
 {% endblock %}
 
 {% block btn-a %}
 <button {% if not btn_enable.a %} disabled {% endif %}
-        onclick="location.href='{% url "worldmap" %}?newgame=true'">
+        onclick="location.href='{% url "save" %}'">
         A
 </button>
 {% endblock %}
 
 {% block btn-b %}
 <button {% if not btn_enable.b %} disabled {% endif %}
-        onclick="location.href='{% url "load" %}'">
+        onclick="location.href='{% url "title_screen" %}'">
         B
 </button>
 {% endblock %}
