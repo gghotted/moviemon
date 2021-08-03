@@ -188,10 +188,33 @@ class Battle(TemplateView):
 
 class Moviedex(TemplateView):
     template_name = 'moviemon/moviedex.html'
+    moviemons = []
+    selected_id = ''
+    moviemons_cnt = 0
 
     def get(self, request, *args, **kwargs):
-
+        gamedata = Data.get_user_game_data(self.request, newgame=False)
+        for title in gamedata.movies_detail:
+            if title in gamedata.movie_get:
+                moviemon = gamedata.movies_detail[title]
+                self.moviemons.append(moviemon)
+        self.moviemons_cnt = len(self.moviemons)
+        
         return super().get(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['btn_enable'] = {
+            'left': True,
+            'right': True,
+            'up': False,
+            'down': False,
+            'select': True,
+            'start': False,
+            'a': True,
+            'b': True
+        }
+        return context
 
 class MoviedexDetail(TemplateView):
     template_name = 'moviemon/moviedex_detail.html'
