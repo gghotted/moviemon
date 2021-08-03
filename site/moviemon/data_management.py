@@ -9,6 +9,7 @@ class Data:
         self.movie_ball_count = 0
         self.movie_get = set()
         self.strength = 0
+        print("Data created!!!!!")
 
     def load(self, data):
         self.pos = data.pos
@@ -39,7 +40,7 @@ class Data:
         return details
 
     def load_default_settings(self):
-        self.map_size = list(settings.MAP_SIZE)
+        self.map_size = settings.MAP_SIZE
         self.moviemons = settings.MOVIES
         self.pos = settings.PLAYER_POS
         self.movies_detail = self.request_movie_detail()

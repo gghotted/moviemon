@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from .data_management import Data
-from django.http import HttpResponse, HttpRequest
 from django.conf import settings
 import random
 import pickle
@@ -34,6 +33,7 @@ class WorldMap(TemplateView):
             self.newgame = True
         else:
             self.newgame = False
+
         gamedata = self.get_user_game_data(request, self.newgame)
         '''
         0 1 2 3 4
@@ -43,11 +43,11 @@ class WorldMap(TemplateView):
         '''
         if request.GET.get('cmd') == 'up' and gamedata.pos['y'] > 0:
             gamedata.pos['y'] -= 1
-        elif request.GET.get('cmd') =='down' and gamedata.pos['y'] < 9:
+        elif request.GET.get('cmd') =='down' and gamedata.pos['y'] < gamedata.map_size['y'] - 1:
             gamedata.pos['y'] += 1
         elif request.GET.get('cmd') == 'left' and gamedata.pos['x'] > 0:
             gamedata.pos['x'] -= 1
-        elif request.GET.get('cmd') == 'right' and gamedata.pos['x'] < 9:
+        elif request.GET.get('cmd') == 'right' and gamedata.pos['x'] < gamedata.map_size['x'] - 1:
             gamedata.pos['x'] += 1
 #        print('cmd: ', request.GET.get('cmd'))
 #        print('x: ', gamedata.pos['x'])
@@ -75,6 +75,7 @@ class WorldMap(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        gamedata = self.get_user_game_data(self.request, newgame=False)
         context['btn_enable'] = {
             'left': True,
             'right': True,
@@ -86,10 +87,9 @@ class WorldMap(TemplateView):
             'b': False
         }
         context['map_size'] = {
-            'y': range(0, settings.MAP_SIZE['y']),
-            'x': range(0, settings.MAP_SIZE['x'])
+            'y': range(0, gamedata.map_size['y']),
+            'x': range(0, gamedata.map_size['x'])
         }
-        gamedata = self.get_user_game_data(self.request, self.newgame)
         context['player_pos'] = gamedata.pos
         context['movieball_cnt'] = gamedata.movie_ball_count
         context['movieball_appeared'] = self.movieball_appeared
@@ -97,11 +97,11 @@ class WorldMap(TemplateView):
 
         if gamedata.pos['y'] == 0:
             context['btn_enable']['up'] = False
-        if gamedata.pos['y'] == settings.MAP_SIZE['y'] - 1:
+        if gamedata.pos['y'] == gamedata.map_size['y'] - 1:
             context['btn_enable']['down'] = False
         if gamedata.pos['x'] == 0:
             context['btn_enable']['left'] = False
-        if gamedata.pos['x'] == settings.MAP_SIZE['x'] - 1:
+        if gamedata.pos['x'] == gamedata.map_size['x'] - 1:
             context['btn_enable']['right'] = False
 
         context['moviemon_id'] = "None"

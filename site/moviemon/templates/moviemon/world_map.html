@@ -44,11 +44,11 @@ map_size = {
     {% for y in map_size.y %}
         <tr>
             {% for x in map_size.x %}
-            <td>
-                {% if y == player_pos.y and x == player_pos.x %}
-                P
-                {% endif %}
-            </td>
+            <td
+            {% if y == player_pos.y and x == player_pos.x %}
+                style="background-color: red;"
+            {% endif %}
+            ></td>
             {% endfor %}
         </tr>
     {% endfor %}

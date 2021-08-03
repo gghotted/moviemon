@@ -125,7 +125,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MAP_SIZE = {'x': 10, 'y': 10}
+# MAX : 50 x 50
+MAP_Y = 10
+MAP_X = 10
+
+MAP_SIZE = {'x': max(MAP_X, 10), 'y': max(MAP_Y, 10)}
 
 PLAYER_POS = {'x': 0, 'y': 0}
 

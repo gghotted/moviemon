@@ -77,17 +77,19 @@ button {
 .worldmap {
     background-color:blanchedalmond;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     border: solid;
     border-collapse: collapse;
     table-layout: fixed;
+    max-height: 100%;
+    max-width: 100%;
 }
 .worldmap td {
     border: solid;
     border-color: black;
     color: green;
     text-align: center;
-    height: 30px;
+    /* height: 30px; */
 }
 
 .selected {
