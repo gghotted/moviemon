@@ -11,8 +11,8 @@ btn_enable = {
 }
 moviemons = [
     {
-        id: tt1234,
-        poster: url,
+        imdbID: tt1234,
+        Poster: url,
     }
     dict,
 ]
@@ -20,13 +20,23 @@ selected_id = str
 -->
 {% extends 'moviemon/base/base.html' %}
 
-{% block title %} WorldMap {% endblock %}
+{% block title %} Moviedex {% endblock %}
 
+{% block screen-data %}
+<div class="btn-nav">Select - WorldMap</div>
+<div class="btn-nav">A - detail</div>
+{% endblock %}
 
 {% block screen-main %}
-    <div class="btn-nav">A - Save</div>
-    <div class="btn-nav">B - Quit</div>
-    <div class="btn-nav">Start - Cancle</div>
+<div class="moviedex-list">
+        {% for moviemon in moviemons %}
+        <img width="100" src={{moviemon.Poster}}
+                {% if moviemon.imdbID == selected_id %}
+                class="selected"
+                {% endif %}
+        >
+        {% endfor %}
+</div>
 {% endblock %}
 
 
@@ -46,42 +56,42 @@ selected_id = str
 
 {% block btn-left %}
 <button {% if not btn_enable.left %} disabled {% endif %}
-        onclick="location.href=''">
+        onclick="location.href='{% url "moviedex" %}?cmd=left&selected_idx={{selected_idx}}'">
         &#11013;
 </button>
 {% endblock %}
 
 {% block btn-right %}
 <button {% if not btn_enable.right %} disabled {% endif %}
-        onclick="location.href=''">
+                onclick="location.href='{% url "moviedex" %}?cmd=right&selected_idx={{selected_idx}}'">
         &#10145;
 </button>
 {% endblock %}
 
 {% block btn-select %}
 <button {% if not btn_enable.select %} disabled {% endif %}
-        onclick="location.href=''">
+        onclick="location.href='{% url "worldmap" %}'">
         select
 </button>
 {% endblock %}
 
 {% block btn-start %}
 <button {% if not btn_enable.start %} disabled {% endif %}
-        onclick="location.href='{% url "worldmap" %} '">
+        onclick="location.href=''">
         start
 </button>
 {% endblock %}
 
 {% block btn-a %}
 <button {% if not btn_enable.a %} disabled {% endif %}
-        onclick="location.href='{% url "save" %}'">
+        onclick="location.href='{% url "moviedex_detail" selected_id %}'">
         A
 </button>
 {% endblock %}
 
 {% block btn-b %}
 <button {% if not btn_enable.b %} disabled {% endif %}
-        onclick="location.href='{% url "title_screen" %}'">
+        onclick="location.href=''">
         B
 </button>
 {% endblock %}

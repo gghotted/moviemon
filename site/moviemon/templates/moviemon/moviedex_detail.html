@@ -1,0 +1,91 @@
+<!-- need contexts
+btn_enable = {
+    'left': bool,
+    'right': bool,
+    'up': bool,
+    'down': bool,
+    'select': bool,
+    'start': bool,
+    'a': bool,
+    'b': bool
+}
+moviemon = dict
+-->
+{% extends 'moviemon/base/base.html' %}
+
+{% block title %} Moviedex-Detail {% endblock %}
+
+{% block screen-data %}
+<p>제목: {{moviemon.Title}}</p>
+<p>개봉연도: {{moviemon.Year}}</p>
+<p>상영시간: {{moviemon.Runtime}}</p>
+<p>장르: {{moviemon.Genre}}</p>
+<p>감독: {{moviemon.Director}}</p>
+<p>평점: {{moviemon.imdbRating}}</p>
+<p>출연: {{moviemon.Actors}}</p>
+<div class="btn-nav">B - 돌아가기</div>
+{% endblock %}
+
+{% block screen-main %}
+<div>
+    <img style="height: 100%; float: left;" src="{{moviemon.Poster}}">
+    <div style="width: 80%;"><p>줄거리: {{moviemon.Plot}}</p></div>
+</div>
+{% endblock %}
+
+
+{% block btn-up %}
+<button {% if not btn_enable.up %} disabled {% endif %}
+        onclick="location.href=''">
+        &#11014;
+</button>
+{% endblock %}
+
+{% block btn-down %}
+<button {% if not btn_enable.down %} disabled {% endif %}
+        onclick="location.href=''">
+        &#11015;
+</button>
+{% endblock %}
+
+{% block btn-left %}
+<button {% if not btn_enable.left %} disabled {% endif %}
+        onclick="location.href=''">
+        &#11013;
+</button>
+{% endblock %}
+
+{% block btn-right %}
+<button {% if not btn_enable.right %} disabled {% endif %}
+                onclick="location.href=''">
+        &#10145;
+</button>
+{% endblock %}
+
+{% block btn-select %}
+<button {% if not btn_enable.select %} disabled {% endif %}
+        onclick="location.href=''">
+        select
+</button>
+{% endblock %}
+
+{% block btn-start %}
+<button {% if not btn_enable.start %} disabled {% endif %}
+        onclick="location.href=''">
+        start
+</button>
+{% endblock %}
+
+{% block btn-a %}
+<button {% if not btn_enable.a %} disabled {% endif %}
+        onclick="location.href=''">
+        A
+</button>
+{% endblock %}
+
+{% block btn-b %}
+<button {% if not btn_enable.b %} disabled {% endif %}
+        onclick="location.href='{% url "moviedex" %}'">
+        B
+</button>
+{% endblock %}

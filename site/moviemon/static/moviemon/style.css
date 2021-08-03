@@ -89,3 +89,7 @@ button {
     text-align: center;
     height: 30px;
 }
+
+.selected {
+    border: 10px solid green;
+}

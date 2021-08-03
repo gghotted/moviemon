@@ -1,0 +1,100 @@
+<!-- need contexts
+btn_enable = {
+    'left': bool,
+    'right': bool,
+    'up': bool,
+    'down': bool,
+    'select': bool,
+    'start': bool,
+    'a': bool,
+    'b': bool
+}
+slots_state = {
+    'a': str, (free or 3/10)
+    'b': str,
+    'c': str
+}
+loaded = bool
+-->
+{% extends 'moviemon/base/base.html' %}
+
+{% block title %} Load {% endblock %}
+
+{% block screen-data %}
+    {% if loaded %}
+    <p>로드 되었습니다!</p>
+    <div class="btn-nav">A - Start</div>
+    {% else %}
+    <div class="btn-nav">A - Load</div>
+    {% endif %}
+    <div class="btn-nav">B - Cancle</div>
+{% endblock %}
+
+{% block screen-main %}
+    <div class="btn-nav {% if slot_idx == 'a' %}selected{% endif %}">Slot A: {{slots_state.a}}</div>
+    <div class="btn-nav {% if slot_idx == 'b' %}selected{% endif %}">Slot B: {{slots_state.b}}</div>
+    <div class="btn-nav {% if slot_idx == 'c' %}selected{% endif %}">Slot C: {{slots_state.c}}</div>
+{% endblock %}
+
+{% block btn-up %}
+<button {% if not btn_enable.up %} disabled {% endif %}
+        onclick="location.href='{% url "load" %}?cmd=up&slot_idx={{slot_idx}}'">
+        &#11014;
+</button>
+{% endblock %}
+
+{% block btn-down %}
+<button {% if not btn_enable.down %} disabled {% endif %}
+        onclick="location.href='{% url "load" %}?cmd=down&slot_idx={{slot_idx}}'">
+        &#11015;
+</button>
+{% endblock %}
+
+{% block btn-left %}
+<button {% if not btn_enable.left %} disabled {% endif %}
+        onclick="location.href=''">
+        &#11013;
+</button>
+{% endblock %}
+
+{% block btn-right %}
+<button {% if not btn_enable.right %} disabled {% endif %}
+        onclick="location.href=''">
+        &#10145;
+</button>
+{% endblock %}
+
+{% block btn-select %}
+<button {% if not btn_enable.select %} disabled {% endif %}
+        onclick="location.href=''">
+        select
+</button>
+{% endblock %}
+
+{% block btn-start %}
+<button {% if not btn_enable.start %} disabled {% endif %}
+        onclick="location.href=''">
+        start
+</button>
+{% endblock %}
+
+{% block btn-a %}
+{% if loaded %}
+    <button {% if not btn_enable.a %} disabled {% endif %}
+            onclick="location.href='{% url "worldmap" %}'">
+            A
+    </button>
+{% else %}
+    <button {% if not btn_enable.a %} disabled {% endif %}
+            onclick="location.href='{% url "load" %}?cmd=a&slot_idx={{slot_idx}}'">
+            A
+    </button>
+{% endif %}
+{% endblock %}
+
+{% block btn-b %}
+<button {% if not btn_enable.b %} disabled {% endif %}
+        onclick="location.href='{% url "title_screen" %}'">
+        B
+</button>
+{% endblock %}
